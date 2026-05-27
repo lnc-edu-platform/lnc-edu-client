@@ -29,6 +29,10 @@ function App() {
               element={<PlaceholderPage title="커뮤니티" />}
             />
             <Route
+              path="community/:postId"
+              element={<PlaceholderPage title="커뮤니티 상세" />}
+            />
+            <Route
               path="members"
               element={<PlaceholderPage title="구성원" />}
             />
