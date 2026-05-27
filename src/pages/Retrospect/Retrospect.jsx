@@ -7,6 +7,7 @@ import WriteModal from './WriteModal.jsx';
 import { fetchReflections } from './retrospectApi.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 
+
 const gridStyle = {
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
@@ -17,7 +18,7 @@ const gridStyle = {
 };
 
 const RetrospectPage = () => {
-  const { token } = useAuth(); // ← Context에서 토큰 꺼내기
+  const { accessToken } = useAuth(); // ← Context에서 토큰 꺼내기
   const navigate = useNavigate();
 
   const [posts, setPosts] = useState([]);
@@ -27,15 +28,20 @@ const RetrospectPage = () => {
   const [activeTab, setActiveTab] = useState('전체');
 
   useEffect(() => {
+
+    if (!isLoading && !accessToken){
+      navigate('/login');
+    }
     const load = async () => {
       setIsLoading(true);
-      const { data, isFallback: fallback } = await fetchReflections(token);
+      const { data, isFallback: fallback } =
+        await fetchReflections(accessToken);
       setPosts(data ?? []);
       setIsFallback(fallback);
       setIsLoading(false);
     };
     load();
-  }, [token]);
+  }, [accessToken, isLoading, navigate]);
 
   const handleAddPost = (newPost) => {
     setPosts((prev) => [newPost, ...prev]);
@@ -47,6 +53,7 @@ const RetrospectPage = () => {
       : posts.filter((p) => p.category === activeTab);
 
   return (
+  
     <div style={{ backgroundColor: '#ffffff', minHeight: '100vh' }}>
       <div
         style={{
@@ -64,15 +71,16 @@ const RetrospectPage = () => {
             ※ 서버에 연결할 수 없어 임시 데이터를 표시합니다.
           </p>
         )}
-      </div>
-
-      <button
+         <button
         onClick={() => setIsModalOpen(true)}
         style={RetrospectStyle.button}
       >
         회고쓰기
       </button>
 
+      </div>
+
+     
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 10px' }}>
         <FilterBar activeTab={activeTab} onTabChange={setActiveTab} />
 

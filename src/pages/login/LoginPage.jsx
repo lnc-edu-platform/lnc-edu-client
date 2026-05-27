@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import AuthLayout from '../../components/Auth/Authlayout.jsx';
 import { loginStyle } from './LoginPage.styles.js';
+import { useToast } from '../../context/ToastContext.jsx';
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080';
 
 const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const showToast = useToast();
 
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
@@ -36,18 +38,19 @@ const LoginPage = () => {
 
       if (!res.ok) {
         if (res.status === 401) {
-          setErrorMsg('아이디 또는 비밀번호가 올바르지 않습니다.');
+          showToast(`아이디 또는 비밀번호가 올바르지 않습니다.`,'error');
         } else if (res.status === 400) {
-          setErrorMsg('아이디와 비밀번호를 모두 입력해주세요.');
+          showToast(`아이디와 비밀번호를 모두 입력해주세요.`,'error');
         } else {
-          setErrorMsg(
-            '로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
-          );
+          showToast(`아이디 또는 비밀번호가 틀렸습니다.`, 'error');
+
         }
         return;
       }
-
+      console.log('로그인 응답:', json);
+      console.log('data:', json.data);
       login(json.data);
+      showToast(`${json.data.user.name}님, 환영합니다!`, 'success');
       navigate('/');
     } catch {
       // 서버 연결 실패 → localStorage 목업 유저로 로그인 시도
@@ -66,9 +69,10 @@ const LoginPage = () => {
             role: found.role,
           },
         });
+           showToast(`${found.name}님, 환영합니다!`, 'success'); // ← json.data.user.name → found.name
         navigate('/');
       } else {
-        setErrorMsg('아이디 또는 비밀번호가 올바르지 않습니다.');
+        showToast(`아이디 또는 비밀번호가 틀렸습니다.`, 'error');
       }
     } finally {
       setIsLoading(false);

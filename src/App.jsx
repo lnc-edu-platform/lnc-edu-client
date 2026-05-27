@@ -8,44 +8,45 @@ import { NoticePage } from './pages/notice/NoticePage.jsx';
 import { PlaceholderPage } from './pages/placeholder/PlaceholderPage.jsx';
 import RetrospectPage from './pages/Retrospect/Retrospect.jsx';
 import RetrospectDetail from './pages/Retrospect/RetrospectDetail.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
 import { ToastProvider } from './context/ToastContext.jsx';
 import SignupPage from './pages/signup/SignupPage.jsx';
+import VenuePage from './pages/VenuePage/VenuePage.jsx';
 
 function App() {
   return (
-    <ToastProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<DefaultLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path="notice" element={<NoticePage />} />
-            <Route path="notice/:noticeId" element={<NoticeDetailPage />} />
-            <Route
-              path="volunteer"
-              element={<PlaceholderPage title="봉사처" />}
-            />
-            <Route
-              path="community"
-              element={<PlaceholderPage title="커뮤니티" />}
-            />
-            <Route
-              path="members"
-              element={<PlaceholderPage title="구성원" />}
-            />
-            <Route element={<ProtectedRoute />}>
+    <AuthProvider>
+      <ToastProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<DefaultLayout />}>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route index element={<HomePage />} />
+              <Route path="notice" element={<NoticePage />} />
+              <Route path="notice/:noticeId" element={<NoticeDetailPage />} />
+              <Route path="volunteer" element={<VenuePage />} />
               <Route
-                path="mypage"
-                element={<PlaceholderPage title="마이페이지" />}
+                path="community"
+                element={<PlaceholderPage title="커뮤니티" />}
               />
+              <Route
+                path="members"
+                element={<PlaceholderPage title="구성원" />}
+              />
+              <Route element={<ProtectedRoute />}>
+                <Route
+                  path="mypage"
+                  element={<PlaceholderPage title="마이페이지" />}
+                />
+              </Route>
+              <Route path="/retrospect" element={<RetrospectPage />} />
+              <Route path="/retrospect/:id" element={<RetrospectDetail />} />
             </Route>
-            <Route path="/retrospect" element={<RetrospectPage />} />
-            <Route path="/retrospect/:id" element={<RetrospectDetail />} />
-          </Route>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-        </Routes>
-      </BrowserRouter>
-    </ToastProvider>
+          </Routes>
+        </BrowserRouter>
+      </ToastProvider>
+    </AuthProvider>
   );
 }
 

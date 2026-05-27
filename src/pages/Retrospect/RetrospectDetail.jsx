@@ -344,58 +344,9 @@ const RetrospectDetail = () => {
           <h3>활동 상세 내용</h3>
           <p style={{ whiteSpace: 'pre-wrap' }}>{post.content}</p>
 
-          <div style={detailStyles.bodyImagePlaceholder}>
-            {post.imgUrl ? (
-              <img
-                src={post.imgUrl}
-                alt={`${post.title} 첨부 이미지`}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            ) : (
-              <span
-                style={{
-                  fontSize: '24px',
-                  fontWeight: 'bold',
-                  color: '#adb5bd',
-                }}
-              >
-                {post.category ?? ''} 봉사 사진 / 자료 미리보기
-              </span>
-            )}
-          </div>
-
-          <h3>향후 계획 및 피드백</h3>
-          <p>
-            오늘 발견한 개선 포인트들을 정리하여 다음 주차 수업 설계 시 반영할
-            예정입니다. 팀원들과 공유하여 더 나은 교수법을 고민해 보겠습니다.
-          </p>
         </div>
 
-        {/* 첨부 파일 */}
-        <div style={detailStyles.fileSection}>
-          <div style={detailStyles.fileTitle}>봉사 자료 첨부</div>
-          <div style={detailStyles.fileGrid}>
-            {post.attachedFiles?.length > 0 ? (
-              post.attachedFiles.map((file, idx) => (
-                <div key={idx} style={detailStyles.fileCard}>
-                  <span>📎 {file.name}</span>
-                  <span style={{ color: '#adb5bd' }}>{file.size}</span>
-                </div>
-              ))
-            ) : (
-              <>
-                <div style={detailStyles.fileCard}>
-                  <span>📎 주차_수업계획안.pdf</span>
-                  <span style={{ color: '#999' }}>1.2MB</span>
-                </div>
-                <div style={detailStyles.fileCard}>
-                  <span>📎 실습_예제_소스.sb3</span>
-                  <span style={{ color: '#999' }}>384KB</span>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
+        
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import logoImg from '../../assets/LOGO.png';
 import {
   AuthButton,
@@ -9,9 +9,17 @@ import {
   Nav,
 } from './Header.styles.js';
 
-const isLoggedIn = false;
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export function Header() {
+  const { isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return (
     <HeaderFrame>
       <HeaderContent>
@@ -25,7 +33,7 @@ export function Header() {
           <NavLink to="/members">구성원</NavLink>
           <NavLink to="/mypage">마이페이지</NavLink>
           {isLoggedIn ? (
-            <AuthButton as="button" type="button">
+            <AuthButton as="button" type="button" onClick={handleLogout}>
               로그아웃
             </AuthButton>
           ) : (
