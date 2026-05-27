@@ -30,7 +30,7 @@ export const loginStyle = {
     width: '384px',
     height: '44px',
     cursor: 'pointer',
-    background: 'black',
+    background: '#86A788',
     color: 'white',
     fontSize: '18px',
     fontWeight: 'bold',
