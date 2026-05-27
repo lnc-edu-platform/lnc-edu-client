@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { venueStyles as s } from './VenuePage.styles.js';
+import { useNavigate } from 'react-router-dom';
 
 const venues = [
   {
@@ -111,14 +112,18 @@ const venues = [
     address: '대구광역시 서구 평리로54길 16',
     recentLogs: [],
   },
-  
+
 ];
 
 const FILTERS = ['전체', '초등학교', '중학교', '고등학교', '기관', '행사'];
 
+
+
 const VenuePage = () => {
   const [activeFilter, setActiveFilter] = useState('전체');
   const [selectedId, setSelectedId] = useState(null);
+  const navigate = useNavigate();
+
 
   const filtered = activeFilter === '전체'
     ? venues
@@ -236,7 +241,9 @@ const VenuePage = () => {
               <div style={s.logSection}>
                 <div style={s.logHeader}>
                   <span style={s.logTitle}>최근 회고</span>
-                  <span style={s.logMore}>전체 보기 &gt;</span>
+                  <span style={s.logMore} onClick={() => navigate('/retrospect')}>
+                    전체 보기 &gt;
+                  </span>
                 </div>
                 {selectedVenue.recentLogs.length > 0 ? (
                   selectedVenue.recentLogs.map((log, i) => (
@@ -261,7 +268,7 @@ const VenuePage = () => {
                     {selectedVenue.mentorMax - selectedVenue.mentorCount}자리 남았어요
                   </p>
                 </div>
-                
+
               </div>
             </div>
           </div>
