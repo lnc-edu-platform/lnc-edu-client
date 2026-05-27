@@ -9,20 +9,16 @@ import {
   Nav,
 } from './Header.styles.js';
 
-import  { useAuth } from '../../context/AuthContext.jsx';
-
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export function Header() {
-
-
   const { isLoggedIn, logout } = useAuth();
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
-
 
   return (
     <HeaderFrame>
@@ -37,7 +33,7 @@ export function Header() {
           <NavLink to="/members">구성원</NavLink>
           <NavLink to="/mypage">마이페이지</NavLink>
           {isLoggedIn ? (
-            <AuthButton as="button" type="button" onClick = { handleLogout }>
+            <AuthButton as="button" type="button" onClick={handleLogout}>
               로그아웃
             </AuthButton>
           ) : (
