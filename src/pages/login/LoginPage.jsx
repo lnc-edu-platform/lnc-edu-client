@@ -46,7 +46,8 @@ const LoginPage = () => {
         }
         return;
       }
-
+      console.log('로그인 응답:', json);
+      console.log('data:', json.data);
       login(json.data);
       navigate('/');
     } catch {

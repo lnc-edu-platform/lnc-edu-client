@@ -17,7 +17,7 @@ const gridStyle = {
 };
 
 const RetrospectPage = () => {
-  const { token } = useAuth(); // ← Context에서 토큰 꺼내기
+  const { accessToken } = useAuth(); // ← Context에서 토큰 꺼내기
   const navigate = useNavigate();
 
   const [posts, setPosts] = useState([]);
@@ -29,13 +29,13 @@ const RetrospectPage = () => {
   useEffect(() => {
     const load = async () => {
       setIsLoading(true);
-      const { data, isFallback: fallback } = await fetchReflections(token);
+      const { data, isFallback: fallback } = await fetchReflections(accessToken);
       setPosts(data ?? []);
       setIsFallback(fallback);
       setIsLoading(false);
     };
     load();
-  }, [token]);
+  }, [accessToken]);
 
   const handleAddPost = (newPost) => {
     setPosts((prev) => [newPost, ...prev]);
