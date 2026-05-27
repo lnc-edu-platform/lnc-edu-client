@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const Page = styled.div`
   display: grid;
@@ -112,18 +111,12 @@ export const SliderButton = styled.button`
   cursor: pointer;
 `;
 
-export const CardTitle = styled(Link)`
-  display: block;
+export const CardTitle = styled.h2`
   margin: 0;
   color: var(--text-h);
   font-size: 20px;
   font-weight: 500;
   line-height: 1.3;
-  text-decoration: none;
-
-  &:hover {
-    color: var(--primary);
-  }
 `;
 
 export const CardDivider = styled.div`
@@ -132,7 +125,7 @@ export const CardDivider = styled.div`
   background: var(--border);
 `;
 
-export const CardAction = styled(Link)`
+export const CardAction = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -141,9 +134,9 @@ export const CardAction = styled(Link)`
   border: 0;
   color: var(--primary);
   background: transparent;
+  font: inherit;
   font-size: 15px;
   font-weight: 700;
-  text-decoration: none;
   cursor: pointer;
 
   &::before {
