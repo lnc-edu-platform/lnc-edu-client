@@ -1,25 +1,26 @@
 import { useState } from 'react';
 import { venueStyles as s } from './VenuePage.styles.js';
+import { useNavigate } from 'react-router-dom';
 
 const venues = [
   {
     id: 1,
-    name: '산격중학교',
+    name: '성광중학교',
     type: '중학교',
     location: '대구 북구',
-    day: '화',
-    time: '16:00–17:30',
+    day: '토',
+    time: '9:00–3:00',
     mentorCount: 6,
     mentorMax: 8,
     isNew: false,
     tags: ['정기 봉사', '중학교'],
     rating: 4.8,
     semester: '9',
-    description: '대구 북구 산격동에 위치한 중학교. 매주 화요일 방과후에 자율동아리 형태로 코딩 멘토링을 진행해요. 학생 인원은 16명, 멘토는 8명 정원입니다.',
-    schedule: { day: '매주 화 16:00 — 17:30', target: '중학교 1·2학년 (혼합반)' },
+    description: '대구 북구에 위치한 중학교. 매주 토요일에 자율동아리 형태로 코딩 멘토링을 진행해요. 학생 인원은 16명, 멘토는 8명 정원입니다.',
+    schedule: { day: '매주 토 09:00 — 13:00', target: '중학교 1·3학년 (혼합반)' },
     place: '학교 컴퓨터실 (B관 3층)',
-    tool: '스크래치 → 파이썬 입문',
-    address: '대구 북구 대학로 80',
+    tool: '바이브 코딩 → html / css 위주',
+    address: '대구광역시 북구 검단로 150',
     recentLogs: [
       { title: '9주차 — 변수 개념을 다시 풀어쓰기', author: '김지원', date: '5/12' },
       { title: '8주차 — 첫 미니프로젝트 진행', author: '박서연', date: '5/05' },
@@ -28,22 +29,22 @@ const venues = [
   },
   {
     id: 2,
-    name: '침산초등학교',
+    name: '칠성초등학교',
     type: '초등학교',
     location: '대구 북구',
-    day: '수',
-    time: '14:30–15:30',
+    day: '금',
+    time: '10:10–11:40',
     mentorCount: 4,
     mentorMax: 6,
     isNew: false,
     tags: ['정기 봉사', '초등학교'],
     rating: 4.5,
     semester: '5',
-    description: '대구 북구 침산동에 위치한 초등학교. 매주 수요일 방과후 스크래치 블록코딩을 중심으로 수업을 진행합니다.',
+    description: '대구 북구 침산동에 위치한 초등학교. 매주 수요일 정규수업시간에 스크래치 블록코딩을 중심으로 수업을 진행합니다.',
     schedule: { day: '매주 수 14:30 — 15:30', target: '초등학교 4학년' },
-    place: '컴퓨터실 (본관 2층)',
+    place: '5-2반',
     tool: '스크래치',
-    address: '대구 북구 침산로 45',
+    address: '대구광역시 북구 침산남로32길 17',
     recentLogs: [
       { title: '5주차 — 블록코딩으로 게임 만들기', author: '이세빈', date: '5/10' },
       { title: '4주차 — 반복문 개념 익히기', author: '김지원', date: '5/03' },
@@ -51,95 +52,78 @@ const venues = [
   },
   {
     id: 3,
-    name: '태전중학교',
-    type: '중학교',
+    name: '경북여자고등학교',
+    type: '고등학교',
     location: '대구 북구',
-    day: '목',
+    day: '금',
     time: '15:30–17:00',
     mentorCount: 5,
     mentorMax: 6,
     isNew: false,
-    tags: ['정기 봉사', '중학교'],
+    tags: ['정기 봉사', '고등학교'],
     rating: 4.6,
     semester: '6',
-    description: '대구 북구 태전동에 위치한 중학교. 파이썬 기초 문법과 알고리즘 사고력을 키우는 수업을 진행합니다.',
+    description: '대구 북구 태전동에 위치한 고등학교. 파이썬 기초 문법과 알고리즘 사고력을 키우는 수업을 진행합니다.',
     schedule: { day: '매주 목 15:30 — 17:00', target: '중학교 2학년' },
-    place: '과학실 (2관 4층)',
+    place: '컴퓨터실 (2관 4층)',
     tool: '파이썬',
-    address: '대구 북구 태전로 12',
+    address: ' 대구광역시 중구 중앙대로 288',
     recentLogs: [
       { title: '6주차 — 함수와 모듈 소개', author: '박서연', date: '5/09' },
     ],
   },
   {
     id: 4,
-    name: '복현초등학교',
-    type: '초등학교',
+    name: '신암지역아동센터',
+    type: '지역아동센터',
     location: '대구 북구',
     day: '수',
     time: '14:00–15:00',
     mentorCount: 3,
     mentorMax: 6,
-    isNew: false,
-    tags: ['정기 봉사', '초등학교'],
+    isNew: true,
+    tags: ['정기 봉사', '아동센터'],
     rating: 4.3,
     semester: '4',
-    description: '대구 북구 복현동에 위치한 초등학교. 엔트리를 활용한 기초 코딩 교육을 진행합니다.',
+    description: '대구 북구 복현동에 위치한 지역아동센터. 엔트리를 활용한 기초 코딩 교육을 진행합니다.',
     schedule: { day: '매주 수 14:00 — 15:00', target: '초등학교 5학년' },
-    place: '컴퓨터실 (본관 3층)',
+    place: '아동센터',
     tool: '엔트리',
-    address: '대구 북구 복현로 33',
+    address: '대구광역시 동구 신암3동 210-13',
     recentLogs: [],
   },
   {
     id: 5,
-    name: '북구 청소년문화의집',
-    type: '기관',
-    location: '대구 북구',
-    day: '토',
-    time: '10:00–12:00',
+    name: '경운초등학교',
+    type: '초등학교',
+    location: '대구 서구',
+    day: '수',
+    time: '10:10–12:00',
     mentorCount: 2,
     mentorMax: 4,
     isNew: true,
-    tags: ['정기 봉사', '기관'],
+    tags: ['정기 봉사', '초등학교'],
     rating: 4.1,
     semester: '2',
-    description: '대구 북구 청소년문화의집에서 진행하는 주말 코딩 교실입니다. 다양한 연령대의 청소년을 대상으로 합니다.',
-    schedule: { day: '매주 토 10:00 — 12:00', target: '중·고등학생 혼합' },
+    description: '대구 서구 초등학교에서 진행하는 수업입니다. ',
+    schedule: { day: '매주 수 10:00 — 12:00', target: '초등학생' },
     place: '3층 디지털 교육실',
     tool: '파이썬, 앱인벤터',
-    address: '대구 북구 문화로 21',
+    address: '대구광역시 서구 평리로54길 16',
     recentLogs: [],
   },
-  {
-    id: 6,
-    name: '대구 SW체험',
-    type: '행사',
-    location: '엑스코',
-    day: '',
-    time: '',
-    mentorCount: 12,
-    mentorMax: 16,
-    isNew: false,
-    tags: ['행사'],
-    rating: 4.9,
-    semester: '연 2회',
-    description: '엑스코에서 연 2회 진행되는 대규모 SW체험 행사입니다. 부스 운영 형태로 진행되며 많은 학생들을 만날 수 있어요.',
-    schedule: { day: '4·10월 (연 2회)', target: '초·중·고 전체' },
-    place: '엑스코 전시홀',
-    tool: '다양한 SW 도구',
-    address: '대구 북구 엑스코로 10',
-    recentLogs: [
-      { title: '부스 운영, 학생 130명을 만난 토요일', author: '이세빈', date: '5/05' },
-    ],
-  },
+
 ];
 
 const FILTERS = ['전체', '초등학교', '중학교', '고등학교', '기관', '행사'];
 
+
+
 const VenuePage = () => {
   const [activeFilter, setActiveFilter] = useState('전체');
   const [selectedId, setSelectedId] = useState(null);
+  const navigate = useNavigate();
+
 
   const filtered = activeFilter === '전체'
     ? venues
@@ -246,13 +230,20 @@ const VenuePage = () => {
                   <p style={s.infoValue}>{selectedVenue.tool}</p>
                 </div>
               </div>
-              <div style={s.mapBox}>
-                <span style={{ color: '#adb5bd', fontSize: '13px' }}>📍 {selectedVenue.address}</span>
+              <div
+                style={{ ...s.mapBox, cursor: 'pointer', flexDirection: 'column', gap: '6px' }}
+                onClick={() => window.open(`https://map.kakao.com/link/search/${encodeURIComponent(selectedVenue.address)}`, '_blank')}
+              >
+                <span style={{ fontSize: '24px' }}>🗺️</span>
+                <span style={{ color: '#495057', fontSize: '13px', fontWeight: '600' }}>📍 {selectedVenue.address}</span>
+                <span style={{ color: '#adb5bd', fontSize: '12px' }}>클릭하면 카카오맵에서 열려요</span>
               </div>
               <div style={s.logSection}>
                 <div style={s.logHeader}>
                   <span style={s.logTitle}>최근 회고</span>
-                  <span style={s.logMore}>전체 보기 &gt;</span>
+                  <span style={s.logMore} onClick={() => navigate('/retrospect')}>
+                    전체 보기 &gt;
+                  </span>
                 </div>
                 {selectedVenue.recentLogs.length > 0 ? (
                   selectedVenue.recentLogs.map((log, i) => (
@@ -277,10 +268,7 @@ const VenuePage = () => {
                     {selectedVenue.mentorMax - selectedVenue.mentorCount}자리 남았어요
                   </p>
                 </div>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  <button style={s.btnOutline}>자료실</button>
-                  <button style={s.btnPrimary}>신청하기 →</button>
-                </div>
+
               </div>
             </div>
           </div>

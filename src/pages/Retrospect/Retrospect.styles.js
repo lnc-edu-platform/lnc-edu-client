@@ -16,6 +16,7 @@ export const RetrospectStyle = {
   },
   button: {
     padding: '10px 20px',
+    marginTop: '10px',
     backgoundColor: '#6b9e78',
     color: '#fff',
     border: 'none',

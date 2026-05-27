@@ -71,15 +71,16 @@ const RetrospectPage = () => {
             ※ 서버에 연결할 수 없어 임시 데이터를 표시합니다.
           </p>
         )}
-      </div>
-
-      <button
+         <button
         onClick={() => setIsModalOpen(true)}
         style={RetrospectStyle.button}
       >
         회고쓰기
       </button>
 
+      </div>
+
+     
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 10px' }}>
         <FilterBar activeTab={activeTab} onTabChange={setActiveTab} />
 
