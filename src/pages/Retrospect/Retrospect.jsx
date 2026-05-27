@@ -29,7 +29,8 @@ const RetrospectPage = () => {
   useEffect(() => {
     const load = async () => {
       setIsLoading(true);
-      const { data, isFallback: fallback } = await fetchReflections(accessToken);
+      const { data, isFallback: fallback } =
+        await fetchReflections(accessToken);
       setPosts(data ?? []);
       setIsFallback(fallback);
       setIsLoading(false);
