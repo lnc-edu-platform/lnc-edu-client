@@ -22,8 +22,14 @@ const EditModal = ({ post, onSave, onClose, isSaving }) => {
     <div style={modalStyle.overlay}>
       <div style={modalStyle.box}>
         <div style={modalStyle.header}>
-          <h2 style={{ margin: 0, fontSize: '18px', fontWeight: '700' }}>회고 수정</h2>
-          <button onClick={onClose} style={modalStyle.closeBtn} disabled={isSaving}>
+          <h2 style={{ margin: 0, fontSize: '18px', fontWeight: '700' }}>
+            회고 수정
+          </h2>
+          <button
+            onClick={onClose}
+            style={modalStyle.closeBtn}
+            disabled={isSaving}
+          >
             &times;
           </button>
         </div>
@@ -50,7 +56,11 @@ const EditModal = ({ post, onSave, onClose, isSaving }) => {
         </div>
 
         <div style={modalStyle.footer}>
-          <button onClick={onClose} style={modalStyle.cancelBtn} disabled={isSaving}>
+          <button
+            onClick={onClose}
+            style={modalStyle.cancelBtn}
+            disabled={isSaving}
+          >
             취소
           </button>
           <button
@@ -68,41 +78,87 @@ const EditModal = ({ post, onSave, onClose, isSaving }) => {
 
 const modalStyle = {
   overlay: {
-    position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.45)',
-    display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000,
+    position: 'fixed',
+    inset: 0,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000,
   },
   box: {
-    backgroundColor: '#fff', borderRadius: '16px', width: '540px', maxWidth: '90vw',
-    boxShadow: '0 12px 32px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column',
+    backgroundColor: '#fff',
+    borderRadius: '16px',
+    width: '540px',
+    maxWidth: '90vw',
+    boxShadow: '0 12px 32px rgba(0,0,0,0.15)',
+    display: 'flex',
+    flexDirection: 'column',
   },
   header: {
-    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-    padding: '20px 24px', borderBottom: '1px solid #f1f3f5',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '20px 24px',
+    borderBottom: '1px solid #f1f3f5',
   },
-  closeBtn: { background: 'none', border: 'none', fontSize: '22px', cursor: 'pointer', color: '#868e96' },
-  body: { padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' },
+  closeBtn: {
+    background: 'none',
+    border: 'none',
+    fontSize: '22px',
+    cursor: 'pointer',
+    color: '#868e96',
+  },
+  body: {
+    padding: '24px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+  },
   inputGroup: { display: 'flex', flexDirection: 'column', gap: '6px' },
   label: { fontSize: '13px', fontWeight: '600', color: '#495057' },
   input: {
-    padding: '10px 14px', borderRadius: '8px', border: '1px solid #ced4da',
-    fontSize: '15px', outline: 'none',
+    padding: '10px 14px',
+    borderRadius: '8px',
+    border: '1px solid #ced4da',
+    fontSize: '15px',
+    outline: 'none',
   },
   textarea: {
-    padding: '12px 14px', borderRadius: '8px', border: '1px solid #ced4da',
-    fontSize: '14px', minHeight: '160px', resize: 'vertical', outline: 'none', lineHeight: '1.7',
+    padding: '12px 14px',
+    borderRadius: '8px',
+    border: '1px solid #ced4da',
+    fontSize: '14px',
+    minHeight: '160px',
+    resize: 'vertical',
+    outline: 'none',
+    lineHeight: '1.7',
   },
   footer: {
-    display: 'flex', justifyContent: 'flex-end', gap: '10px',
-    padding: '16px 24px', borderTop: '1px solid #f1f3f5',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: '10px',
+    padding: '16px 24px',
+    borderTop: '1px solid #f1f3f5',
   },
   cancelBtn: {
-    padding: '10px 20px', borderRadius: '8px', border: '1px solid #dee2e6',
-    backgroundColor: '#fff', fontSize: '14px', cursor: 'pointer', fontWeight: '500',
+    padding: '10px 20px',
+    borderRadius: '8px',
+    border: '1px solid #dee2e6',
+    backgroundColor: '#fff',
+    fontSize: '14px',
+    cursor: 'pointer',
+    fontWeight: '500',
   },
   saveBtn: {
-    padding: '10px 20px', borderRadius: '8px', border: 'none',
-    backgroundColor: '#6b9e78', color: '#fff', fontSize: '14px',
-    cursor: 'pointer', fontWeight: '700',
+    padding: '10px 20px',
+    borderRadius: '8px',
+    border: 'none',
+    backgroundColor: '#6b9e78',
+    color: '#fff',
+    fontSize: '14px',
+    cursor: 'pointer',
+    fontWeight: '700',
   },
 };
 
@@ -122,7 +178,10 @@ const RetrospectDetail = () => {
   useEffect(() => {
     const load = async () => {
       setIsLoading(true);
-      const { data, isFallback: fallback } = await fetchReflectionById(id, accessToken);
+      const { data, isFallback: fallback } = await fetchReflectionById(
+        id,
+        accessToken,
+      );
       if (!data) setNotFound(true);
       else {
         setPost(data);
@@ -142,7 +201,11 @@ const RetrospectDetail = () => {
   // ── 수정 저장 ───────────────────────────────
   const handleSave = async ({ title, content }) => {
     setIsSaving(true);
-    const { data } = await updateReflection(id, { title, content }, accessToken);
+    const { data } = await updateReflection(
+      id,
+      { title, content },
+      accessToken,
+    );
     if (data) setPost(data);
     setIsSaving(false);
     setIsEditModalOpen(false);
@@ -150,7 +213,8 @@ const RetrospectDetail = () => {
 
   // ── 삭제 ────────────────────────────────────
   const handleDelete = async () => {
-    if (!window.confirm('이 회고를 삭제할까요? 삭제 후 복구할 수 없습니다.')) return;
+    if (!window.confirm('이 회고를 삭제할까요? 삭제 후 복구할 수 없습니다.'))
+      return;
     const { success } = await deleteReflection(id, accessToken);
     if (success) navigate('/retrospect');
   };
@@ -168,7 +232,10 @@ const RetrospectDetail = () => {
     return (
       <div style={{ padding: '40px', textAlign: 'center' }}>
         <p>게시글을 찾을 수 없습니다.</p>
-        <button onClick={() => navigate('/retrospect')} style={detailStyles.backBtn}>
+        <button
+          onClick={() => navigate('/retrospect')}
+          style={detailStyles.backBtn}
+        >
           목록으로 돌아가기
         </button>
       </div>
@@ -189,11 +256,16 @@ const RetrospectDetail = () => {
 
       {/* 상단 네비 */}
       <div style={detailStyles.navHeader}>
-        <button onClick={() => navigate('/retrospect')} style={detailStyles.backBtn}>
+        <button
+          onClick={() => navigate('/retrospect')}
+          style={detailStyles.backBtn}
+        >
           ← 목록으로 돌아가기
         </button>
         {isFallback && (
-          <span style={{ fontSize: '12px', color: '#adb5bd', marginLeft: '12px' }}>
+          <span
+            style={{ fontSize: '12px', color: '#adb5bd', marginLeft: '12px' }}
+          >
             (임시 데이터)
           </span>
         )}
@@ -203,7 +275,9 @@ const RetrospectDetail = () => {
         {/* 태그 */}
         <div style={detailStyles.tagContainer}>
           {post.tags?.map((tag, i) => (
-            <span key={i} style={detailStyles.tag}>#{tag}</span>
+            <span key={i} style={detailStyles.tag}>
+              #{tag}
+            </span>
           ))}
         </div>
 
@@ -215,7 +289,9 @@ const RetrospectDetail = () => {
           <div style={detailStyles.authorBox}>
             <div style={detailStyles.avatar} />
             <div>
-              <div style={detailStyles.authorName}>{post.author?.name ?? '작성자'}</div>
+              <div style={detailStyles.authorName}>
+                {post.author?.name ?? '작성자'}
+              </div>
               <div style={detailStyles.dateText}>
                 {formatDate(post.createdAt)}
                 {post.updatedAt !== post.createdAt && (
@@ -233,13 +309,21 @@ const RetrospectDetail = () => {
             {isOwner && (
               <>
                 <button
-                  style={{ ...detailStyles.actionBtn, color: '#6b9e78', fontWeight: '600' }}
+                  style={{
+                    ...detailStyles.actionBtn,
+                    color: '#6b9e78',
+                    fontWeight: '600',
+                  }}
                   onClick={() => setIsEditModalOpen(true)}
                 >
                   ✏️ 수정
                 </button>
                 <button
-                  style={{ ...detailStyles.actionBtn, color: '#e03131', fontWeight: '600' }}
+                  style={{
+                    ...detailStyles.actionBtn,
+                    color: '#e03131',
+                    fontWeight: '600',
+                  }}
                   onClick={handleDelete}
                 >
                   🗑 삭제
@@ -268,7 +352,13 @@ const RetrospectDetail = () => {
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             ) : (
-              <span style={{ fontSize: '24px', fontWeight: 'bold', color: '#adb5bd' }}>
+              <span
+                style={{
+                  fontSize: '24px',
+                  fontWeight: 'bold',
+                  color: '#adb5bd',
+                }}
+              >
                 {post.category ?? ''} 봉사 사진 / 자료 미리보기
               </span>
             )}
@@ -276,8 +366,8 @@ const RetrospectDetail = () => {
 
           <h3>향후 계획 및 피드백</h3>
           <p>
-            오늘 발견한 개선 포인트들을 정리하여 다음 주차 수업 설계 시 반영할 예정입니다.
-            팀원들과 공유하여 더 나은 교수법을 고민해 보겠습니다.
+            오늘 발견한 개선 포인트들을 정리하여 다음 주차 수업 설계 시 반영할
+            예정입니다. 팀원들과 공유하여 더 나은 교수법을 고민해 보겠습니다.
           </p>
         </div>
 

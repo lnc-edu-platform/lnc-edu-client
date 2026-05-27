@@ -6,19 +6,7 @@ export const Layout = styled.div`
   flex-direction: column;
 `;
 
-export const Header = styled.header`
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-`;
-
 export const Main = styled.main`
-  width: min(1120px, calc(100% - 100px));
-  margin: 0 auto;
+  width: 100%;
   flex: 1;
-  padding: 56px 0;
-`;
-
-export const Footer = styled.footer`
-  border-top: 1px solid var(--border);
-  background: var(--surface);
 `;

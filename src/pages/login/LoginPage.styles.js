@@ -74,4 +74,3 @@ export const loginStyle = {
     cursor: 'pointer',
   },
 };
- 

@@ -29,7 +29,8 @@ export const dummyPosts = [
   {
     id: 2,
     title: '부스 운영, 학생 130명을 만난 토요일',
-    content: '30분 단위 로테이션이 생각보다 빡빡했어요. 운영진과 정리한 인사이트 5가지를 공유합니다.',
+    content:
+      '30분 단위 로테이션이 생각보다 빡빡했어요. 운영진과 정리한 인사이트 5가지를 공유합니다.',
     author: { name: '이세빈', loginId: 'lsb' },
     createdAt: '2026-05-05T10:00:00',
     updatedAt: '2026-05-05T10:00:00',
@@ -41,7 +42,8 @@ export const dummyPosts = [
   {
     id: 3,
     title: '침산초등학교 4학년 스크래치 수업',
-    content: '블록 코딩이 익숙하지 않은 아이들을 위해 눈높이에 맞춰 설명하는 법을 배웠습니다.',
+    content:
+      '블록 코딩이 익숙하지 않은 아이들을 위해 눈높이에 맞춰 설명하는 법을 배웠습니다.',
     author: { name: '박서연', loginId: 'psy' },
     createdAt: '2026-04-30T11:00:00',
     updatedAt: '2026-04-30T11:00:00',
@@ -57,7 +59,7 @@ export const formatDate = (isoString) => {
   if (!isoString) return '';
   const d = new Date(isoString);
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(
-    d.getDate()
+    d.getDate(),
   ).padStart(2, '0')}`;
 };
 
@@ -67,7 +69,9 @@ export const formatDate = (isoString) => {
 export const fetchReflections = async (accessToken) => {
   if (USE_MOCK) return { data: dummyPosts, isFallback: true };
   try {
-    const res = await fetch(`${BASE_URL}/api/reflections`, { headers: authHeaders(accessToken) });
+    const res = await fetch(`${BASE_URL}/api/reflections`, {
+      headers: authHeaders(accessToken),
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
     return { data: json.data, isFallback: false };
@@ -84,8 +88,11 @@ export const fetchReflectionById = async (id, accessToken) => {
     return { data: found, isFallback: true };
   }
   try {
-    const res = await fetch(`${BASE_URL}/api/reflections/${id}`, { headers: authHeaders(accessToken) });
-    if (res.status === 404) return { data: null, notFound: true, isFallback: false };
+    const res = await fetch(`${BASE_URL}/api/reflections/${id}`, {
+      headers: authHeaders(accessToken),
+    });
+    if (res.status === 404)
+      return { data: null, notFound: true, isFallback: false };
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
     return { data: json.data, isFallback: false };
@@ -97,7 +104,11 @@ export const fetchReflectionById = async (id, accessToken) => {
 };
 
 /** 회고 작성  POST /api/reflections */
-export const createReflection = async ({ title, content }, accessToken, user) => {
+export const createReflection = async (
+  { title, content },
+  accessToken,
+  user,
+) => {
   if (USE_MOCK) {
     const newPost = {
       id: Date.now(),
@@ -155,8 +166,14 @@ export const updateReflection = async (id, { title, content }, accessToken) => {
       headers: authHeaders(accessToken),
       body: JSON.stringify({ title, content }),
     });
-    if (res.status === 403) return { data: null, error: '수정 권한이 없습니다.', isFallback: false };
-    if (res.status === 404) return { data: null, error: '회고를 찾을 수 없습니다.', isFallback: false };
+    if (res.status === 403)
+      return { data: null, error: '수정 권한이 없습니다.', isFallback: false };
+    if (res.status === 404)
+      return {
+        data: null,
+        error: '회고를 찾을 수 없습니다.',
+        isFallback: false,
+      };
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
     return { data: json.data, isFallback: false };
@@ -180,8 +197,18 @@ export const deleteReflection = async (id, accessToken) => {
       method: 'DELETE',
       headers: authHeaders(accessToken),
     });
-    if (res.status === 403) return { success: false, error: '삭제 권한이 없습니다.', isFallback: false };
-    if (res.status === 404) return { success: false, error: '회고를 찾을 수 없습니다.', isFallback: false };
+    if (res.status === 403)
+      return {
+        success: false,
+        error: '삭제 권한이 없습니다.',
+        isFallback: false,
+      };
+    if (res.status === 404)
+      return {
+        success: false,
+        error: '회고를 찾을 수 없습니다.',
+        isFallback: false,
+      };
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return { success: true, isFallback: false };
   } catch (err) {

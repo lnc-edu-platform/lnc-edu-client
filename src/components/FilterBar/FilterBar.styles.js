@@ -22,5 +22,5 @@ export const filterStyles = {
     color: '#607561',
     backgroundColor: '#EEF2EE',
     borderColor: '#EEF2EE',
-  }
+  },
 };

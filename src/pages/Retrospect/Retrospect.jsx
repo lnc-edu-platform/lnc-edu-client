@@ -17,7 +17,7 @@ const gridStyle = {
 };
 
 const RetrospectPage = () => {
-  const { token } = useAuth();           // ← Context에서 토큰 꺼내기
+  const { token } = useAuth(); // ← Context에서 토큰 꺼내기
   const navigate = useNavigate();
 
   const [posts, setPosts] = useState([]);
@@ -42,21 +42,34 @@ const RetrospectPage = () => {
   };
 
   const filteredPosts =
-    activeTab === '전체' ? posts : posts.filter((p) => p.category === activeTab);
+    activeTab === '전체'
+      ? posts
+      : posts.filter((p) => p.category === activeTab);
 
   return (
     <div style={{ backgroundColor: '#ffffff', minHeight: '100vh' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '30px 10px 10px 10px' }}>
+      <div
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '30px 10px 10px 10px',
+        }}
+      >
         <h4 style={RetrospectStyle.littleT}>RETROSPECT</h4>
         <h1 style={RetrospectStyle.title}>회고</h1>
         {isFallback && (
-          <p style={{ fontSize: '12px', color: '#adb5bd', margin: '4px 0 0 0' }}>
+          <p
+            style={{ fontSize: '12px', color: '#adb5bd', margin: '4px 0 0 0' }}
+          >
             ※ 서버에 연결할 수 없어 임시 데이터를 표시합니다.
           </p>
         )}
       </div>
 
-      <button onClick={() => setIsModalOpen(true)} style={RetrospectStyle.button}>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        style={RetrospectStyle.button}
+      >
         회고쓰기
       </button>
 
@@ -64,7 +77,14 @@ const RetrospectPage = () => {
         <FilterBar activeTab={activeTab} onTabChange={setActiveTab} />
 
         {isLoading ? (
-          <p style={{ textAlign: 'center', color: '#adb5bd', margin: '80px 0', fontSize: '15px' }}>
+          <p
+            style={{
+              textAlign: 'center',
+              color: '#adb5bd',
+              margin: '80px 0',
+              fontSize: '15px',
+            }}
+          >
             불러오는 중...
           </p>
         ) : (
@@ -82,14 +102,24 @@ const RetrospectPage = () => {
         )}
 
         {!isLoading && filteredPosts.length === 0 && (
-          <p style={{ textAlign: 'center', color: '#adb5bd', margin: '80px 0', fontSize: '15px' }}>
+          <p
+            style={{
+              textAlign: 'center',
+              color: '#adb5bd',
+              margin: '80px 0',
+              fontSize: '15px',
+            }}
+          >
             해당 봉사처에 등록된 회고록이 아직 없습니다.
           </p>
         )}
       </div>
 
       {isModalOpen && (
-        <WriteModal onClose={() => setIsModalOpen(false)} onUpload={handleAddPost} />
+        <WriteModal
+          onClose={() => setIsModalOpen(false)}
+          onUpload={handleAddPost}
+        />
       )}
     </div>
   );

@@ -1,4 +1,3 @@
-
 import style from './AuthLayout.module.css';
 
 function AuthLayout({ title, children }) {

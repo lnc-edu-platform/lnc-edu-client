@@ -1,109 +1,154 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const Page = styled.div`
   display: grid;
-  gap: 32px;
 `;
 
-export const Hero = styled.section`
+export const Banner = styled.section`
+  min-height: 286px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 32px;
-  padding: 48px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
+  background: rgba(251, 243, 213, 0.1);
+  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+  align-items: center;
+  gap: 48px;
+  padding: 0 72px;
+  border-bottom: 1px solid var(--border);
+  box-shadow:
+    inset 0 4px 4px 0 rgba(0, 0, 0, 0.15),
+    inset 0 -4px 10px 0 rgba(0, 0, 0, 0.15);
 
-  @media (max-width: 720px) {
+  @media (max-width: 900px) {
+    min-height: auto;
     grid-template-columns: 1fr;
-    align-items: start;
-    padding: 28px;
+    gap: 28px;
+    padding: 52px 28px;
+    text-align: center;
   }
 `;
 
-export const HeroCopy = styled.div`
+export const BannerTitle = styled.h1`
+  margin: 0;
+  color: #000;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 1.45;
+  text-align: center;
+
+  @media (max-width: 900px) {
+    font-size: 28px;
+  }
+`;
+
+export const BannerLogo = styled.img`
+  width: min(100%, 560px);
+  justify-self: end;
+  display: block;
+
+  @media (max-width: 900px) {
+    justify-self: center;
+  }
+`;
+
+export const Cards = styled.section`
   display: grid;
-  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 50px;
+  padding: 60px 96px;
+
+  @media (max-width: 980px) {
+    grid-template-columns: 1fr;
+    padding: 48px 50px;
+  }
+
+  @media (max-width: 640px) {
+    padding: 36px 24px;
+  }
+`;
+
+export const MainCard = styled.article`
+  min-height: 268px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 18px 28px;
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  background: var(--surface);
+`;
+
+export const CardHeader = styled.strong`
+  color: var(--text-soft);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+`;
+
+export const CardBody = styled.div`
+  flex: 1;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
 
   p {
-    color: var(--accent);
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    margin: 0;
-    max-width: 560px;
-  }
-
-  span {
-    max-width: 560px;
-    color: var(--text);
+    max-width: 268px;
+    margin: 16px auto 0;
+    color: var(--text-soft);
+    font-size: 11px;
+    line-height: 1.35;
   }
 `;
 
-export const HeroActions = styled.div`
-  display: flex;
-  gap: 10px;
-
-  @media (max-width: 720px) {
-    width: 100%;
-  }
+export const SliderButton = styled.button`
+  width: 24px;
+  height: 44px;
+  border: 0;
+  color: var(--primary);
+  background: transparent;
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
 `;
 
-const BaseLink = styled(Link)`
-  min-height: 42px;
+export const CardTitle = styled.h2`
+  margin: 0;
+  color: var(--text-h);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.3;
+`;
+
+export const CardDivider = styled.div`
+  height: 1px;
+  margin: 0 0 16px;
+  background: var(--border);
+`;
+
+export const CardAction = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 16px;
-  border-radius: 6px;
+  gap: 6px;
+  align-self: center;
+  border: 0;
+  color: var(--primary);
+  background: transparent;
+  font: inherit;
   font-size: 15px;
   font-weight: 700;
-  text-decoration: none;
+  cursor: pointer;
 
-  @media (max-width: 720px) {
-    flex: 1;
-  }
-`;
-
-export const PrimaryLink = styled(BaseLink)`
-  color: #fff;
-  background: var(--accent);
-`;
-
-export const SecondaryLink = styled(BaseLink)`
-  color: var(--text-h);
-  background: var(--muted);
-`;
-
-export const Stats = styled.section`
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-
-  @media (max-width: 720px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-export const Stat = styled.article`
-  display: grid;
-  gap: 8px;
-  padding: 24px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-
-  strong {
-    color: var(--text-h);
-  }
-
-  span {
-    color: var(--text-soft);
-    font-size: 14px;
+  &::before {
+    content: '✓';
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    font-size: 18px;
+    line-height: 1;
   }
 `;

@@ -1,17 +1,10 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import './Toast.css';
-
 
 const ToastContext = createContext();
 
 export const ToastProvider = ({ children }) => {
-
   const [toast, setToast] = useState({
     show: false,
     message: '',
@@ -67,7 +60,6 @@ export const ToastProvider = ({ children }) => {
           className={`toast-container ${toast.type}`}
           style={{ animationDuration: `${toast.duration}ms` }}
         >
-          
           <p className="toast-message">{toast.message}</p>
           {toast.actions.length > 0 && (
             <div className="toast-actions">

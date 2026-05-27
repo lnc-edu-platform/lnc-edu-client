@@ -38,8 +38,14 @@ const SignupPage = () => {
   const handleNext = (e) => {
     e.preventDefault();
     setErrorMsg('');
-    if (!name.trim()) { setErrorMsg('이름을 입력해주세요.'); return; }
-    if (!studentId.trim()) { setErrorMsg('학번을 입력해주세요.'); return; }
+    if (!name.trim()) {
+      setErrorMsg('이름을 입력해주세요.');
+      return;
+    }
+    if (!studentId.trim()) {
+      setErrorMsg('학번을 입력해주세요.');
+      return;
+    }
     setStep(2);
   };
 
@@ -48,9 +54,18 @@ const SignupPage = () => {
     e.preventDefault();
     setErrorMsg('');
 
-    if (!loginId.trim()) { setErrorMsg('아이디를 입력해주세요.'); return; }
-    if (password.length < 10) { setErrorMsg('비밀번호는 최소 10자 이상이어야 합니다.'); return; }
-    if (password !== passwordConfirm) { setErrorMsg('비밀번호가 일치하지 않습니다.'); return; }
+    if (!loginId.trim()) {
+      setErrorMsg('아이디를 입력해주세요.');
+      return;
+    }
+    if (password.length < 10) {
+      setErrorMsg('비밀번호는 최소 10자 이상이어야 합니다.');
+      return;
+    }
+    if (password !== passwordConfirm) {
+      setErrorMsg('비밀번호가 일치하지 않습니다.');
+      return;
+    }
 
     setIsLoading(true);
     try {
@@ -60,27 +75,31 @@ const SignupPage = () => {
         body: JSON.stringify({ loginId, password, name, studentId }),
       });
 
-      const json = await res.json();
+      await res.json();
 
       if (!res.ok) {
         if (res.status === 400) {
           setErrorMsg('이미 사용 중인 아이디 또는 학번입니다.');
         } else {
-          setErrorMsg('회원가입 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+          setErrorMsg(
+            '회원가입 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+          );
         }
         return;
       }
 
       navigate('/login');
-    } catch (err) {
+    } catch {
       // 서버 연결 실패 → localStorage에 임시 저장
       console.warn('[Signup] 서버 연결 실패 → localStorage에 임시 저장');
 
-      const existingUsers = JSON.parse(localStorage.getItem('mockUsers') ?? '[]');
+      const existingUsers = JSON.parse(
+        localStorage.getItem('mockUsers') ?? '[]',
+      );
 
       // 아이디 또는 학번 중복 체크
       const isDuplicate = existingUsers.some(
-        (u) => u.loginId === loginId || u.studentId === studentId
+        (u) => u.loginId === loginId || u.studentId === studentId,
       );
       if (isDuplicate) {
         setErrorMsg('이미 사용 중인 아이디 또는 학번입니다.');
@@ -97,7 +116,10 @@ const SignupPage = () => {
         createdAt: new Date().toISOString(),
       };
 
-      localStorage.setItem('mockUsers', JSON.stringify([...existingUsers, newUser]));
+      localStorage.setItem(
+        'mockUsers',
+        JSON.stringify([...existingUsers, newUser]),
+      );
       console.info('[Signup] 임시 저장 완료:', newUser.loginId);
       navigate('/login');
     } finally {
@@ -209,7 +231,11 @@ const SignupPage = () => {
             className={style.input}
             required
           />
-          <button type="button" className={style.eyeBtn} onClick={() => setShowPw((v) => !v)}>
+          <button
+            type="button"
+            className={style.eyeBtn}
+            onClick={() => setShowPw((v) => !v)}
+          >
             {showPw ? '👁' : '🙈'}
           </button>
         </div>
@@ -229,7 +255,11 @@ const SignupPage = () => {
             className={style.input}
             required
           />
-          <button type="button" className={style.eyeBtn} onClick={() => setShowPwConfirm((v) => !v)}>
+          <button
+            type="button"
+            className={style.eyeBtn}
+            onClick={() => setShowPwConfirm((v) => !v)}
+          >
             {showPwConfirm ? '👁' : '🙈'}
           </button>
         </div>
@@ -244,11 +274,18 @@ const SignupPage = () => {
         <button
           type="button"
           className={style.backButton}
-          onClick={() => { setStep(1); setErrorMsg(''); }}
+          onClick={() => {
+            setStep(1);
+            setErrorMsg('');
+          }}
         >
           이전
         </button>
-        <button type="submit" className={style.submitButton} disabled={isLoading}>
+        <button
+          type="submit"
+          className={style.submitButton}
+          disabled={isLoading}
+        >
           {isLoading ? '가입 중...' : '회원가입'}
         </button>
       </div>
@@ -258,7 +295,7 @@ const SignupPage = () => {
   return (
     <AuthLayout title="회원가입">
       {step === 1 ? renderStep1() : renderStep2()}
-      </AuthLayout>
+    </AuthLayout>
   );
 };
 

@@ -40,24 +40,31 @@ const LoginPage = () => {
         } else if (res.status === 400) {
           setErrorMsg('아이디와 비밀번호를 모두 입력해주세요.');
         } else {
-          setErrorMsg('로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+          setErrorMsg(
+            '로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
+          );
         }
         return;
       }
 
       login(json.data);
       navigate('/');
-    } catch (err) {
+    } catch {
       // 서버 연결 실패 → localStorage 목업 유저로 로그인 시도
       console.warn('[Login] 서버 연결 실패 → 목업 유저 확인');
       const mockUsers = JSON.parse(localStorage.getItem('mockUsers') ?? '[]');
       const found = mockUsers.find(
-        (u) => u.loginId === loginId && u.password === password
+        (u) => u.loginId === loginId && u.password === password,
       );
       if (found) {
         login({
           isMock: true,
-          user: { loginId: found.loginId, name: found.name, studentId: found.studentId, role: found.role },
+          user: {
+            loginId: found.loginId,
+            name: found.name,
+            studentId: found.studentId,
+            role: found.role,
+          },
         });
         navigate('/');
       } else {
@@ -94,7 +101,11 @@ const LoginPage = () => {
                 {errorMsg}
               </p>
             )}
-            <button type="submit" style={loginStyle.inputbutton} disabled={isLoading}>
+            <button
+              type="submit"
+              style={loginStyle.inputbutton}
+              disabled={isLoading}
+            >
               {isLoading ? '로그인 중...' : '로그인'}
             </button>
           </div>
