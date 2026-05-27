@@ -38,13 +38,12 @@ const LoginPage = () => {
 
       if (!res.ok) {
         if (res.status === 401) {
-          setErrorMsg('아이디 또는 비밀번호가 올바르지 않습니다.');
+          showToast(`아이디 또는 비밀번호가 올바르지 않습니다.`,'error');
         } else if (res.status === 400) {
-          setErrorMsg('아이디와 비밀번호를 모두 입력해주세요.');
+          showToast(`아이디와 비밀번호를 모두 입력해주세요.`,'error');
         } else {
-          setErrorMsg(
-            '로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
-          );
+          showToast(`아이디 또는 비밀번호가 틀렸습니다.`, 'error');
+
         }
         return;
       }
