@@ -58,16 +58,24 @@ export const AuthButton = styled(NavLink)`
   align-items: center;
   justify-content: center;
   padding: 0 12px;
-  border: 1px solid transparent;
+  border: none;
   border-radius: 3px;
   color: #fff !important;
   background: var(--primary);
-  font: inherit;
+  font-family: inherit;
   font-size: 13px !important;
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
+  white-space: nowrap;
+  appearance: none;
+  transition: background 0.2s;
 
   &:hover {
     background: var(--primary-hover);
+  }
+
+  &:focus {
+    outline: none;
   }
 `;
