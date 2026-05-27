@@ -29,7 +29,7 @@ export const Banner = styled.section`
 export const BannerTitle = styled.h1`
   margin: 0;
   color: #000;
-  font-size: 34px;
+  font-size: 50px;
   font-weight: 800;
   line-height: 1.45;
   text-align: center;
