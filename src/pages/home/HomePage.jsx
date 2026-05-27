@@ -1,46 +1,76 @@
+import mainLogoImg from '../../assets/LOGO(main).png';
 import {
-  Hero,
-  HeroActions,
-  HeroCopy,
+  Banner,
+  BannerLogo,
+  BannerTitle,
+  CardAction,
+  CardBody,
+  CardDivider,
+  CardHeader,
+  CardTitle,
+  Cards,
+  MainCard,
   Page,
-  PrimaryLink,
-  SecondaryLink,
-  Stat,
-  Stats,
+  SliderButton,
 } from './HomePage.styles.js';
+
+const previewCards = [
+  {
+    category: '공지',
+    title: '2026년 1학기 정기봉사처 모집 안내',
+    description:
+      '안녕하세요 경북대학교 컴퓨터학부 교육봉사동아리 L&C입니다. 2026년 1학기 정기봉사처 봉사자 모집을 21일부터 시작하여 ...',
+    action: '공지 확인하기',
+  },
+  {
+    category: '자유게시판',
+    title: '2026년 1학기 정기봉사처 모집 안내',
+    description:
+      '안녕하세요 경북대학교 컴퓨터학부 교육봉사동아리 L&C입니다. 2026년 1학기 정기봉사처 봉사자 모집을 21일부터 시작하여 ...',
+    action: '게시글 확인하기',
+  },
+  {
+    category: '회고',
+    title: '2026년 1학기 정기봉사처 모집 안내',
+    description:
+      '안녕하세요 경북대학교 컴퓨터학부 교육봉사동아리 L&C입니다. 2026년 1학기 정기봉사처 봉사자 모집을 21일부터 시작하여 ...',
+    action: '회고 확인하기',
+  },
+];
 
 export function HomePage() {
   return (
     <Page>
-      <Hero>
-        <HeroCopy>
-          <p>Online learning workspace</p>
-          <h1>학습 관리의 시작점</h1>
-          <span>
-            강의, 과제, 학습 현황을 한 곳에서 관리하는 교육 플랫폼
-            프로젝트입니다.
-          </span>
-        </HeroCopy>
-        <HeroActions>
-          <PrimaryLink to="/login">로그인하기</PrimaryLink>
-          <SecondaryLink to="/">둘러보기</SecondaryLink>
-        </HeroActions>
-      </Hero>
+      <Banner>
+        <BannerTitle>
+          방문을 환영합니다,
+          <br />
+          L&C입니다.
+        </BannerTitle>
+        <BannerLogo src={mainLogoImg} alt="Lovely & Communication" />
+      </Banner>
 
-      <Stats>
-        <Stat>
-          <strong>Courses</strong>
-          <span>강의 관리 영역</span>
-        </Stat>
-        <Stat>
-          <strong>Progress</strong>
-          <span>학습 진행률 영역</span>
-        </Stat>
-        <Stat>
-          <strong>Assignments</strong>
-          <span>과제 관리 영역</span>
-        </Stat>
-      </Stats>
+      <Cards>
+        {previewCards.map((card) => (
+          <MainCard key={card.category}>
+            <CardHeader>{card.category}</CardHeader>
+            <CardBody>
+              <SliderButton type="button" aria-label="이전 게시글">
+                &lt;
+              </SliderButton>
+              <div>
+                <CardTitle>{card.title}</CardTitle>
+                <p>{card.description}</p>
+              </div>
+              <SliderButton type="button" aria-label="다음 게시글">
+                &gt;
+              </SliderButton>
+            </CardBody>
+            <CardDivider />
+            <CardAction type="button">{card.action}</CardAction>
+          </MainCard>
+        ))}
+      </Cards>
     </Page>
   );
 }
