@@ -10,6 +10,7 @@ import RetrospectPage from './pages/Retrospect/Retrospect.jsx';
 import RetrospectDetail from './pages/Retrospect/RetrospectDetail.jsx';
 import { ToastProvider } from './context/ToastContext.jsx';
 import SignupPage from './pages/signup/SignupPage.jsx';
+import VenuePage from './pages/VenuePage/VenuePage.jsx';
 
 function App() {
   return (
@@ -17,12 +18,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<DefaultLayout />}>
+                 <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
             <Route index element={<HomePage />} />
             <Route path="notice" element={<NoticePage />} />
             <Route path="notice/:noticeId" element={<NoticeDetailPage />} />
             <Route
-              path="volunteer"
-              element={<PlaceholderPage title="봉사처" />}
+              path="volunteer"  element = {<VenuePage />}
             />
             <Route
               path="community"
@@ -41,8 +43,7 @@ function App() {
             <Route path="/retrospect" element={<RetrospectPage />} />
             <Route path="/retrospect/:id" element={<RetrospectDetail />} />
           </Route>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
+  
         </Routes>
       </BrowserRouter>
     </ToastProvider>

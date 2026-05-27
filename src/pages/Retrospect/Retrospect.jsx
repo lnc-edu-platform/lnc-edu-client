@@ -7,6 +7,7 @@ import WriteModal from './WriteModal.jsx';
 import { fetchReflections } from './retrospectApi.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 
+
 const gridStyle = {
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
@@ -27,6 +28,10 @@ const RetrospectPage = () => {
   const [activeTab, setActiveTab] = useState('전체');
 
   useEffect(() => {
+
+    if (!isLoading && !accessToken){
+      navigate('/login');
+    }
     const load = async () => {
       setIsLoading(true);
       const { data, isFallback: fallback } =
@@ -36,7 +41,7 @@ const RetrospectPage = () => {
       setIsLoading(false);
     };
     load();
-  }, [accessToken]);
+  }, [accessToken, isLoading, navigate]);
 
   const handleAddPost = (newPost) => {
     setPosts((prev) => [newPost, ...prev]);
@@ -48,6 +53,7 @@ const RetrospectPage = () => {
       : posts.filter((p) => p.category === activeTab);
 
   return (
+  
     <div style={{ backgroundColor: '#ffffff', minHeight: '100vh' }}>
       <div
         style={{
