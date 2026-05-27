@@ -1,32 +1,114 @@
-import {
-  Field,
-  Form,
-  LoginButton,
-  LoginCard,
-  LoginPageFrame,
-} from './LoginPage.styles.js';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext.jsx';
+import AuthLayout from '../../components/Auth/Authlayout.jsx';
+import { loginStyle } from './LoginPage.styles.js';
 
-export function LoginPage() {
+const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080';
+
+const LoginPage = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const [loginId, setLoginId] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMsg('');
+
+    if (!loginId.trim() || !password.trim()) {
+      setErrorMsg('아이디와 비밀번호를 입력해주세요.');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const res = await fetch(`${BASE_URL}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ loginId, password }),
+      });
+
+      const json = await res.json();
+
+      if (!res.ok) {
+        if (res.status === 401) {
+          setErrorMsg('아이디 또는 비밀번호가 올바르지 않습니다.');
+        } else if (res.status === 400) {
+          setErrorMsg('아이디와 비밀번호를 모두 입력해주세요.');
+        } else {
+          setErrorMsg('로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+        }
+        return;
+      }
+
+      login(json.data);
+      navigate('/');
+    } catch (err) {
+      // 서버 연결 실패 → localStorage 목업 유저로 로그인 시도
+      console.warn('[Login] 서버 연결 실패 → 목업 유저 확인');
+      const mockUsers = JSON.parse(localStorage.getItem('mockUsers') ?? '[]');
+      const found = mockUsers.find(
+        (u) => u.loginId === loginId && u.password === password
+      );
+      if (found) {
+        login({
+          isMock: true,
+          user: { loginId: found.loginId, name: found.name, studentId: found.studentId, role: found.role },
+        });
+        navigate('/');
+      } else {
+        setErrorMsg('아이디 또는 비밀번호가 올바르지 않습니다.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <LoginPageFrame>
-      <LoginCard>
-        <div>
-          <h1>로그인</h1>
-          <p>계정 정보를 입력해 주세요.</p>
-        </div>
+    <div>
+      <AuthLayout title="로그인">
+        <form style={loginStyle.form} onSubmit={handleSubmit}>
+          <div style={loginStyle.inputGroup}>
+            <input
+              type="text"
+              value={loginId}
+              onChange={(e) => setLoginId(e.target.value)}
+              placeholder="아이디 입력"
+              style={loginStyle.input}
+              required
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="비밀번호 입력"
+              style={loginStyle.input}
+              required
+            />
+            {errorMsg && (
+              <p style={{ fontSize: '13px', color: '#e03131', margin: 0 }}>
+                {errorMsg}
+              </p>
+            )}
+            <button type="submit" style={loginStyle.inputbutton} disabled={isLoading}>
+              {isLoading ? '로그인 중...' : '로그인'}
+            </button>
+          </div>
+        </form>
+      </AuthLayout>
 
-        <Form>
-          <Field>
-            <span>이메일</span>
-            <input type="email" placeholder="name@example.com" />
-          </Field>
-          <Field>
-            <span>비밀번호</span>
-            <input type="password" placeholder="비밀번호" />
-          </Field>
-          <LoginButton type="button">로그인</LoginButton>
-        </Form>
-      </LoginCard>
-    </LoginPageFrame>
+      <div style={loginStyle.join}>
+        처음이신가요?{' '}
+        <span onClick={() => navigate('/signup')} style={loginStyle.joinSpan}>
+          회원가입
+        </span>
+      </div>
+    </div>
   );
-}
+};
+
+export default LoginPage;

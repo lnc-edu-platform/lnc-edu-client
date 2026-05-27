@@ -1,69 +1,77 @@
-import styled from 'styled-components';
-
-export const LoginPageFrame = styled.main`
-  min-height: 100svh;
-  display: grid;
-  place-items: center;
-  padding: 32px 20px;
-  background: var(--bg);
-`;
-
-export const LoginCard = styled.section`
-  width: min(420px, 100%);
-  display: grid;
-  gap: 28px;
-  padding: 32px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-
-  h1 {
-    margin: 0 0 8px;
-    font-size: 32px;
-  }
-
-  p {
-    color: var(--text-soft);
-  }
-`;
-
-export const Form = styled.form`
-  display: grid;
-  gap: 16px;
-`;
-
-export const Field = styled.label`
-  display: grid;
-  gap: 8px;
-  color: var(--text-h);
-  font-size: 14px;
-  font-weight: 700;
-
-  input {
-    height: 44px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0 12px;
-    color: var(--text-h);
-    background: var(--bg);
-    font: inherit;
-    font-size: 15px;
-  }
-
-  input:focus {
-    outline: 2px solid var(--accent-border);
-    outline-offset: 2px;
-  }
-`;
-
-export const LoginButton = styled.button`
-  height: 44px;
-  border: 0;
-  border-radius: 6px;
-  color: #fff;
-  background: var(--accent);
-  font: inherit;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-`;
+export const loginStyle = {
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
+  inputGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '15px',
+    marginTop: '50px',
+    width: '384px',
+  },
+  input: {
+    width: '100%',
+    height: '44px',
+    boxSizing: 'border-box',
+    padding: '0 12px',
+    border: '1px solid #d7d7d7',
+    borderRadius: '4px',
+    fontSize: '16px',
+  },
+  inputFocus: {
+    border: '2px solid #54a7da',
+    outline: 'none',
+  },
+  inputbutton: {
+    width: '384px',
+    height: '44px',
+    cursor: 'pointer',
+    background: 'black',
+    color: 'white',
+    fontSize: '18px',
+    fontWeight: 'bold',
+    border: 'none',
+  },
+  autoLoginWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    height: 'auto',
+    gap: '8px',
+  },
+  autoLoginLabel: {
+    fontSize: '14px',
+    color: '#575757',
+  },
+  checkbox: {
+    appearance: 'none',
+    WebkitAppearance: 'none',
+    width: '20px',
+    height: '20px',
+    padding: 0,
+    flexShrink: 0,
+    border: '1px solid #d7d7d7',
+    borderRadius: '4px',
+    backgroundColor: '#fff',
+    cursor: 'pointer',
+    outline: 'none',
+  },
+  join: {
+    display: 'flex',
+    fontSize: '16px',
+    position: 'absolute',
+    bottom: '30px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    color: '#666',
+  },
+  joinSpan: {
+    textDecoration: 'underline',
+    fontSize: '16px',
+    cursor: 'pointer',
+  },
+};
+ 
